@@ -7,63 +7,117 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body {
-      scroll-behavior: smooth;
-      height: 100%;
+    html, body { scroll-behavior: smooth; height: 100%; }
+    body {
       font-family: 'Poppins', sans-serif;
-      background: #f4f4f4;
       color: #222;
-      transition: background 0.4s, color 0.4s;
+      background: #f0f0f0;
+      overflow-x: hidden;
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
-    /* Sticky Nav */
+    /* Dynamic background */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: linear-gradient(-45deg, #00bcd4, #2196f3, #673ab7, #000);
+      background-size: 400% 400%;
+      z-index: -1;
+      animation: animateBG 20s ease infinite;
+    }
+    @keyframes animateBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Navbar */
     nav {
-      position: sticky;
+      position: fixed;
+      width: 100%;
       top: 0;
-      background: rgba(255,255,255,0.9);
+      background: rgba(255,255,255,0.2);
       backdrop-filter: blur(10px);
-      padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 1rem 2rem;
       z-index: 1000;
-      border-bottom: 1px solid #ddd;
     }
     nav .logo {
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       font-weight: bold;
-      color: #007bff;
-    }
-    nav a {
-      margin-left: 1rem;
-      text-decoration: none;
-      color: #333;
-      font-weight: 500;
-    }
-
-    header {
-      text-align: center;
-      padding: 5rem 2rem 3rem;
-      background: linear-gradient(135deg, #007bff, #00c6ff);
       color: #fff;
     }
-    header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
+    nav a {
+      color: #fff;
+      margin-left: 1.2rem;
+      text-decoration: none;
+      font-weight: 500;
+      transition: transform 0.3s;
+    }
+    nav a:hover { transform: scale(1.1); }
+
+    /* Dark mode switch */
+    .dark-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      margin-left: 1rem;
+    }
+    .toggle-btn {
+      position: relative;
+      width: 50px;
+      height: 24px;
+      background: #ccc;
+      border-radius: 30px;
+      transition: background 0.3s;
+    }
+    .toggle-btn::before {
+      content: "";
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 18px;
+      height: 18px;
+      background: #fff;
+      border-radius: 50%;
+      transition: transform 0.3s;
+    }
+    input[type="checkbox"]:checked + .toggle-btn {
+      background: #2196f3;
+    }
+    input[type="checkbox"]:checked + .toggle-btn::before {
+      transform: translateX(26px);
     }
 
-    header p {
-      font-size: 1.2rem;
-      max-width: 600px;
-      margin: 0 auto;
+    .dark-toggle label {
+      color: #fff;
     }
+
+    /* Header */
+    header {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+      padding: 2rem;
+    }
+    header h1 { font-size: 3rem; margin-bottom: 1rem; }
+    header p { max-width: 600px; font-size: 1.2rem; }
 
     section {
-      padding: 3rem 2rem;
       max-width: 1000px;
       margin: auto;
+      padding: 5rem 2rem 2rem;
       opacity: 0;
-      transform: translateY(30px);
+      transform: translateY(40px);
       transition: 0.6s ease all;
     }
     section.visible {
@@ -73,68 +127,31 @@
 
     h2 {
       text-align: center;
+      color: #00bcd4;
       font-size: 2rem;
       margin-bottom: 2rem;
-      color: #007bff;
     }
 
     .grid {
-      display: flex;
-      overflow-x: auto;
-      gap: 1rem;
-      scroll-snap-type: x mandatory;
+      display: grid;
+      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
+
     .card {
-      min-width: 250px;
-      flex-shrink: 0;
-      scroll-snap-align: start;
-      background: rgba(255,255,255,0.9);
-      padding: 1.5rem;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
+      padding: 2rem;
+      border-radius: 16px;
       transition: transform 0.3s;
     }
     .card:hover {
-      transform: scale(1.03);
+      transform: translateY(-10px);
     }
 
-    /* Expandable */
-    .expandable {
-      cursor: pointer;
-      position: relative;
-      background: rgba(255,255,255,0.9);
-      padding: 1.5rem;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.05);
-    }
-    .expandable .more {
-      display: none;
-      margin-top: 1rem;
-    }
-    .expandable.open .more {
-      display: block;
-    }
-
-    .cta-button {
-      background: #007bff;
-      color: #fff;
-      border: none;
-      padding: 0.8rem 1.5rem;
-      font-size: 1rem;
-      border-radius: 30px;
-      cursor: pointer;
-      animation: pulse 2s infinite;
-      margin: 1rem auto 0;
-      display: block;
-      transition: background 0.3s;
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.08); }
-      100% { transform: scale(1); }
-    }
-
+    /* Contact Icons */
     .icons {
       display: flex;
       justify-content: center;
@@ -144,12 +161,11 @@
     .icons img {
       width: 40px;
       height: 40px;
-      transition: transform 0.3s;
+      transition: transform 0.3s ease;
     }
-    .icons img:hover {
-      transform: scale(1.2);
-    }
+    .icons img:hover { transform: scale(1.3); }
 
+    /* Form */
     form {
       display: flex;
       flex-direction: column;
@@ -159,68 +175,61 @@
     }
     input, textarea {
       padding: 0.8rem;
-      border-radius: 6px;
-      border: 1px solid #ccc;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+      outline: none;
     }
     button {
-      background: #007bff;
-      color: #fff;
+      background: #00bcd4;
       border: none;
       padding: 0.8rem;
-      border-radius: 6px;
+      border-radius: 8px;
+      color: white;
+      font-weight: bold;
       cursor: pointer;
       transition: background 0.3s;
     }
-    button:hover { background: #0056b3; }
+    button:hover { background: #007a9e; }
 
     footer {
       text-align: center;
-      background: #1f2937;
-      color: white;
       padding: 2rem;
+      color: white;
+      background: rgba(0,0,0,0.3);
+      backdrop-filter: blur(5px);
     }
 
-    /* Floating Action Button */
-    .fab {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #25D366;
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      z-index: 1000;
-      animation: bounce 2s infinite;
+    /* Dark mode styles */
+    body.dark-mode {
+      background: #121212;
+      color: #eee;
     }
-    .fab img {
-      width: 30px;
-      height: 30px;
+    body.dark-mode nav,
+    body.dark-mode footer {
+      background: rgba(0,0,0,0.5);
     }
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-    }
-
-    @media (max-width: 600px) {
-      nav { flex-direction: column; align-items: flex-start; }
-      .grid { flex-direction: column; overflow-x: visible; }
+    body.dark-mode input,
+    body.dark-mode textarea {
+      background: #2c2c2c;
+      color: #fff;
     }
   </style>
 </head>
 <body>
 
-  <!-- Sticky Nav -->
+  <!-- Navbar -->
   <nav>
     <div class="logo">Naflan</div>
-    <div>
+    <div style="display:flex;align-items:center;">
       <a href="#about">About</a>
       <a href="#education">Education</a>
       <a href="#experience">Experience</a>
       <a href="#contact">Contact</a>
+      <div class="dark-toggle">
+        <input type="checkbox" id="theme-toggle" style="display:none;" />
+        <label for="theme-toggle" class="toggle-btn"></label>
+      </div>
     </div>
   </nav>
 
@@ -230,39 +239,30 @@
     <p>BBA in Accounting (Lincoln University Malaysia) | Computer-Based Accounting | AAT Finalist</p>
   </header>
 
-  <!-- About -->
-  <section id="about" class="expandable">
+  <!-- Sections -->
+  <section id="about">
     <h2>About Me</h2>
-    <p>Tap to expand and read more about my background.</p>
-    <div class="more">
-      <p>I am Mohamed Naflan, an aspiring accounting professional with a strong background in academic qualifications and practical experience. I have a passion for finance, accounting systems, and delivering efficiency in business operations.</p>
-    </div>
+    <p>I am Mohamed Naflan, an aspiring accounting professional with a strong background in academic qualifications and practical experience. I have a passion for finance, accounting systems, and delivering efficiency in business operations.</p>
   </section>
 
-  <!-- Education -->
   <section id="education">
     <h2>Education</h2>
     <div class="grid">
       <div class="card"><h3>BBA in Accounting</h3><p>Lincoln University, Malaysia (Ongoing)</p></div>
       <div class="card"><h3>AAT Finalist</h3><p>Completed all levels of AAT qualification</p></div>
-      <div class="card"><h3>Diploma in Computer-Based Accounting</h3><p>Digital accounting skills</p></div>
-      <div class="card"><h3>GCE A/L & O/L</h3><p>Good academic standing</p></div>
+      <div class="card"><h3>Diploma in Computer-Based Accounting</h3><p>Strong skills in digital accounting</p></div>
+      <div class="card"><h3>GCE A/L & O/L</h3><p>Completed with good academic standing</p></div>
     </div>
   </section>
 
-  <!-- Experience -->
-  <section id="experience" class="expandable">
+  <section id="experience">
     <h2>Experience</h2>
-    <p>Tap to view my past job experience.</p>
-    <div class="more">
-      <div class="card">
-        <h3>Store Keeper</h3>
-        <p>Managed inventory systems, streamlined stock processes, and supported logistics and supply chain tasks efficiently.</p>
-      </div>
+    <div class="card">
+      <h3>Store Keeper</h3>
+      <p>Managed inventory systems, streamlined stock processes, and supported logistics and supply chain tasks efficiently.</p>
     </div>
   </section>
 
-  <!-- Contact -->
   <section id="contact">
     <h2>Contact Me</h2>
     <div class="icons">
@@ -276,24 +276,40 @@
       <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
       <button type="submit">Send Message</button>
     </form>
-    <button class="cta-button">Get In Touch</button>
   </section>
 
-  <!-- Footer -->
   <footer>
     &copy; 2025 Mohamed Naflan. All rights reserved.
   </footer>
 
-  <!-- Floating WhatsApp FAB -->
-  <a href="https://wa.me/94787234314" class="fab" title="Chat on WhatsApp">
-    <img src="whatsapp.png" alt="WhatsApp" />
-  </a>
-
-  <!-- Audio -->
+  <!-- Dark Mode Sound -->
   <audio id="darkmode-audio" src="spiderman-theme.mp3" preload="auto"></audio>
 
   <script>
-    // Scroll animation
+    // Theme Toggle
+    const toggle = document.getElementById("theme-toggle");
+    const body = document.body;
+    const audio = document.getElementById("darkmode-audio");
+
+    if (localStorage.getItem("theme") === "dark") {
+      body.classList.add("dark-mode");
+      toggle.checked = true;
+    }
+
+    toggle.addEventListener("change", () => {
+      if (toggle.checked) {
+        body.classList.add("dark-mode");
+        localStorage.setItem("theme", "dark");
+        audio.currentTime = 0;
+        audio.play().catch(() => {});
+      } else {
+        body.classList.remove("dark-mode");
+        localStorage.setItem("theme", "light");
+        // No sound on light mode
+      }
+    });
+
+    // Scroll-triggered animation
     const sections = document.querySelectorAll("section");
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -302,14 +318,9 @@
         }
       });
     }, { threshold: 0.1 });
-    sections.forEach(section => observer.observe(section));
 
-    // Expandable sections
-    document.querySelectorAll('.expandable').forEach(box => {
-      box.addEventListener('click', () => {
-        box.classList.toggle('open');
-      });
-    });
+    sections.forEach(section => observer.observe(section));
   </script>
+
 </body>
 </html>
