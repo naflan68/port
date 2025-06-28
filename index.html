@@ -17,6 +17,21 @@
       background: linear-gradient(to bottom right, #f0f4f8, #dbeafe);
       color: #333;
       overflow-x: hidden;
+      cursor: none;
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      background: rgba(0, 123, 255, 0.5);
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s ease;
+      z-index: 1000;
     }
     nav {
       position: fixed;
@@ -172,11 +187,11 @@
 
   <section id="contact">
     <h2>Contact</h2>
-    <p>Email: <a href="mailto:naflan@example.com">naflan@example.com</a></p>
-    <p>Phone: +94-XXX-XXXXXXX</p>
+    <p>Email: <a href="mailto:mohamednaflan21478@gmail.com">mohamednaflan21478@gmail.com</a></p>
+    <p>Phone: +94-787234314</p>
     <div class="icons">
-      <a href="mailto:naflan@example.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a>
-      <a href="https://wa.me/94XXXXXXXXX" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      <a href="mailto:mohamednaflan21478@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a>
+      <a href="https://wa.me/94787234314" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
     </div>
   </section>
 
@@ -185,6 +200,7 @@
   </footer>
 
   <script>
+    // Smooth scroll
     document.querySelectorAll('nav a').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
         e.preventDefault();
@@ -193,6 +209,16 @@
           window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
         }
       });
+    });
+
+    // Mouse cursor effect
+    const cursor = document.body;
+    const dot = document.createElement('div');
+    dot.className = 'cursor-dot';
+    document.body.appendChild(dot);
+
+    document.addEventListener('mousemove', e => {
+      dot.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
     });
   </script>
 </body>
