@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mohamed Naflan – Portfolio</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; color: #333; line-height: 1.6; }
+    nav { position: fixed; top: 0; width: 100%; background: rgba(255,255,255,0.9); padding: 1em; display: flex; justify-content: center; gap: 2em; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    nav a { text-decoration: none; color: #333; font-weight: bold; }
+    section { min-height: 100vh; padding: 6em 2em 2em; }
+    header, #about, #works, #contact { display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center; }
+    header { background: #f5f5f5; }
+    header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    header p { font-size: 1.2rem; color: #666; }
+    #about h2, #works h2, #contact h2 { font-size: 2rem; margin-bottom: 1rem; }
+    #works .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px,1fr)); gap: 1.5rem; }
+    #works .item { border: 1px solid #eee; padding: 1em; border-radius: 8px; }
+    footer { text-align: center; padding: 2em; font-size: 0.9rem; color: #666; }
+    .smooth { cursor: pointer; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="smooth" href="#about">About</a>
+  <a class="smooth" href="#works">Works</a>
+  <a class="smooth" href="#contact">Contact</a>
+</nav>
+
+<header id="about">
+  <h1>Mohamed Naflan</h1>
+  <p>BBA in Accounting (Lincoln University Malaysia) & Computer-Based Accounting Diploma</p>
+</header>
+
+<section id="works">
+  <h2>Selected Works</h2>
+  <div class="grid">
+    <div class="item">
+      <h3>Storekeeper Experience</h3>
+      <p>Efficient inventory control and stock logistics.</p>
+    </div>
+    <div class="item">
+      <h3>AAT Finalist & Diploma</h3>
+      <p>Advanced financial and computer-based accounting knowledge.</p>
+    </div>
+    <div class="item">
+      <h3>Academic Projects</h3>
+      <p>Ongoing BBA studies and applied accounting research.</p>
+    </div>
+    <!-- add more items as needed -->
+  </div>
+</section>
+
+<section id="contact">
+  <h2>Contact</h2>
+  <p>Email: <a href="mailto:naflan@example.com">naflan@example.com</a></p>
+  <p>Phone: +94‑XXX‑XXXXXXX</p>
+</section>
+
+<footer>
+  &copy; 2025 Mohamed Naflan. All rights reserved.
+</footer>
+
+<script>
+  document.querySelectorAll('.smooth').forEach(a => {
+    a.onclick = e => {
+      e.preventDefault();
+      document.querySelector(a.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+</script>
+
+</body>
+</html>
