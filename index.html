@@ -260,7 +260,8 @@
       <a href="#education">Education</a>
       <a href="#experience">Experience</a>
       <a href="#contact">Contact</a>
-      <a href="Front Page.pdf" download class="download-cv" aria-label="Download CV">Download CV</a>
+      <!-- Download CV Button -->
+      <a href="Front_Page.pdf" download id="download-cv" class="download-cv" aria-label="Download CV">Download CV</a>
       <label class="switch">
         <input type="checkbox" id="theme-toggle">
         <span class="slider"></span>
@@ -357,6 +358,18 @@
     }, { threshold: 0.1 });
 
     sections.forEach(section => observer.observe(section));
+
+    // JS fallback for download to force it if needed
+    document.getElementById('download-cv').addEventListener('click', function(event) {
+      event.preventDefault(); // prevent default behavior
+
+      const link = document.createElement('a');
+      link.href = 'Front_Page.pdf';
+      link.download = 'Front_Page.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
   </script>
 </body>
 </html>
