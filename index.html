@@ -6,101 +6,108 @@
   <title>Mohamed Naflan – Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
   <style>
+    /* Reset and base */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { scroll-behavior: smooth; height: 100%; }
+    html, body { height: 100%; scroll-behavior: smooth; }
     body {
       font-family: 'Poppins', sans-serif;
-      color: #222;
-      background: #f0f0f0;
       overflow-x: hidden;
-      transition: background 0.3s ease, color 0.3s ease;
+      transition: background 0.3s, color 0.3s;
     }
 
-    /* Dynamic background */
+    /* Dynamic gradient background */
     body::before {
       content: "";
       position: fixed;
       top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: linear-gradient(-45deg, #00bcd4, #2196f3, #673ab7, #000);
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(-45deg, #1a1a1a, #0f2027, #2c5364, #000000);
       background-size: 400% 400%;
-      z-index: -1;
-      animation: animateBG 20s ease infinite;
-    }
-    @keyframes animateBG {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+      animation: gradientBG 20s ease infinite;
+      z-index: -2;
     }
 
-    /* Navbar */
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    /* Loader */
+    #loader {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: #000;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      font-size: 2rem;
+      letter-spacing: 1px;
+      animation: fadeOut 1s ease forwards;
+      animation-delay: 2s;
+    }
+
+    @keyframes fadeOut {
+      to { opacity: 0; visibility: hidden; }
+    }
+
+    /* Navigation */
     nav {
       position: fixed;
-      width: 100%;
-      top: 0;
-      background: rgba(255,255,255,0.2);
+      top: 0; width: 100%;
+      background: rgba(255, 255, 255, 0.2);
       backdrop-filter: blur(10px);
+      padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1rem 2rem;
       z-index: 1000;
     }
     nav .logo {
+      font-weight: 600;
       font-size: 1.5rem;
-      font-weight: bold;
       color: #fff;
     }
     nav a {
       color: #fff;
-      margin-left: 1.2rem;
+      margin-left: 1.5rem;
       text-decoration: none;
       font-weight: 500;
       transition: transform 0.3s;
     }
     nav a:hover { transform: scale(1.1); }
 
-    /* Dark mode switch */
-    .dark-toggle {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      cursor: pointer;
+    .switch {
+      display: inline-block;
       margin-left: 1rem;
     }
-    .toggle-btn {
+    .switch input { display: none; }
+    .slider {
+      width: 50px; height: 24px;
+      background: #888;
+      border-radius: 34px;
       position: relative;
-      width: 50px;
-      height: 24px;
-      background: #ccc;
-      border-radius: 30px;
-      transition: background 0.3s;
+      cursor: pointer;
     }
-    .toggle-btn::before {
+    .slider::before {
       content: "";
       position: absolute;
-      top: 3px;
-      left: 3px;
-      width: 18px;
-      height: 18px;
+      width: 18px; height: 18px;
       background: #fff;
       border-radius: 50%;
-      transition: transform 0.3s;
+      top: 3px; left: 3px;
+      transition: 0.4s;
     }
-    input[type="checkbox"]:checked + .toggle-btn {
-      background: #2196f3;
-    }
-    input[type="checkbox"]:checked + .toggle-btn::before {
-      transform: translateX(26px);
-    }
+    input:checked + .slider::before { transform: translateX(26px); }
+    input:checked + .slider { background: #007bff; }
 
-    .dark-toggle label {
-      color: #fff;
-    }
-
-    /* Header */
+    /* Header Parallax */
     header {
-      min-height: 100vh;
+      height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -109,16 +116,25 @@
       text-align: center;
       padding: 2rem;
     }
-    header h1 { font-size: 3rem; margin-bottom: 1rem; }
-    header p { max-width: 600px; font-size: 1.2rem; }
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      transition: transform 0.3s;
+    }
+    header p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      transition: transform 0.3s;
+    }
 
+    /* Section */
     section {
+      padding: 5rem 2rem;
       max-width: 1000px;
       margin: auto;
-      padding: 5rem 2rem 2rem;
       opacity: 0;
       transform: translateY(40px);
-      transition: 0.6s ease all;
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
     section.visible {
       opacity: 1;
@@ -127,28 +143,29 @@
 
     h2 {
       text-align: center;
-      color: #00bcd4;
       font-size: 2rem;
+      color: #00cfff;
       margin-bottom: 2rem;
     }
 
+    /* Cards */
     .grid {
       display: grid;
       gap: 2rem;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
-
     .card {
       background: rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 2rem;
       backdrop-filter: blur(10px);
       border: 1px solid rgba(255,255,255,0.2);
       color: white;
-      padding: 2rem;
-      border-radius: 16px;
-      transition: transform 0.3s;
+      transition: transform 0.3s, box-shadow 0.3s;
     }
     .card:hover {
       transform: translateY(-10px);
+      box-shadow: 0 0 20px rgba(0,0,0,0.4);
     }
 
     /* Contact Icons */
@@ -158,12 +175,12 @@
       gap: 2rem;
       margin-bottom: 2rem;
     }
-    .icons img {
+    .icons a img {
       width: 40px;
       height: 40px;
       transition: transform 0.3s ease;
     }
-    .icons img:hover { transform: scale(1.3); }
+    .icons a img:hover { transform: scale(1.3); }
 
     /* Form */
     form {
@@ -181,7 +198,7 @@
       outline: none;
     }
     button {
-      background: #00bcd4;
+      background: #00cfff;
       border: none;
       padding: 0.8rem;
       border-radius: 8px;
@@ -190,7 +207,7 @@
       cursor: pointer;
       transition: background 0.3s;
     }
-    button:hover { background: #007a9e; }
+    button:hover { background: #0077aa; }
 
     footer {
       text-align: center;
@@ -200,46 +217,36 @@
       backdrop-filter: blur(5px);
     }
 
-    /* Dark mode styles */
+    /* Dark mode */
     body.dark-mode {
-      background: #121212;
       color: #eee;
     }
-    body.dark-mode nav,
-    body.dark-mode footer {
-      background: rgba(0,0,0,0.5);
-    }
-    body.dark-mode input,
-    body.dark-mode textarea {
-      background: #2c2c2c;
-      color: #fff;
-    }
+
   </style>
 </head>
 <body>
 
-  <!-- Navbar -->
+  <div id="loader">🕷️ Loading...</div>
+
   <nav>
     <div class="logo">Naflan</div>
-    <div style="display:flex;align-items:center;">
+    <div>
       <a href="#about">About</a>
       <a href="#education">Education</a>
       <a href="#experience">Experience</a>
       <a href="#contact">Contact</a>
-      <div class="dark-toggle">
-        <input type="checkbox" id="theme-toggle" style="display:none;" />
-        <label for="theme-toggle" class="toggle-btn"></label>
-      </div>
+      <label class="switch">
+        <input type="checkbox" id="theme-toggle">
+        <span class="slider"></span>
+      </label>
     </div>
   </nav>
 
-  <!-- Header -->
   <header>
     <h1>Mohamed Naflan</h1>
     <p>BBA in Accounting (Lincoln University Malaysia) | Computer-Based Accounting | AAT Finalist</p>
   </header>
 
-  <!-- Sections -->
   <section id="about">
     <h2>About Me</h2>
     <p>I am Mohamed Naflan, an aspiring accounting professional with a strong background in academic qualifications and practical experience. I have a passion for finance, accounting systems, and delivering efficiency in business operations.</p>
@@ -266,9 +273,9 @@
   <section id="contact">
     <h2>Contact Me</h2>
     <div class="icons">
-      <a href="mailto:mohamednaflan21478@gmail.com"><img src="email.png" alt="Email" /></a>
-      <a href="https://www.linkedin.com/in/mohamed-naflan-ba7780300"><img src="linkedin-logo.png" alt="LinkedIn" /></a>
-      <a href="https://wa.me/94787234314"><img src="whatsapp.png" alt="WhatsApp" /></a>
+      <a href="mailto:mohamednaflan21478@gmail.com"><img src="email.png" alt="Email"></a>
+      <a href="https://www.linkedin.com/in/mohamed-naflan-ba7780300"><img src="linkedin-logo.png" alt="LinkedIn"></a>
+      <a href="https://wa.me/94787234314"><img src="whatsapp.png" alt="WhatsApp"></a>
     </div>
     <form action="mailto:mohamednaflan21478@gmail.com" method="POST" enctype="text/plain">
       <input type="text" name="name" placeholder="Your Name" required />
@@ -282,36 +289,40 @@
     &copy; 2025 Mohamed Naflan. All rights reserved.
   </footer>
 
-  <!-- Dark Mode Sound -->
+  <!-- Dark Mode Audio -->
   <audio id="darkmode-audio" src="spiderman-theme.mp3" preload="auto"></audio>
 
   <script>
-    // Theme Toggle
-    const toggle = document.getElementById("theme-toggle");
-    const body = document.body;
-    const audio = document.getElementById("darkmode-audio");
+    // Loading animation
+    window.addEventListener("load", () => {
+      document.getElementById("loader").style.display = "none";
+    });
 
-    if (localStorage.getItem("theme") === "dark") {
-      body.classList.add("dark-mode");
+    // Dark mode toggle
+    const toggle = document.getElementById('theme-toggle');
+    const body = document.body;
+    const audio = document.getElementById('darkmode-audio');
+
+    if (localStorage.getItem('theme') === 'dark') {
+      body.classList.add('dark-mode');
       toggle.checked = true;
     }
 
-    toggle.addEventListener("change", () => {
+    toggle.addEventListener('change', () => {
       if (toggle.checked) {
-        body.classList.add("dark-mode");
-        localStorage.setItem("theme", "dark");
+        body.classList.add('dark-mode');
+        localStorage.setItem('theme', 'dark');
         audio.currentTime = 0;
         audio.play().catch(() => {});
       } else {
-        body.classList.remove("dark-mode");
-        localStorage.setItem("theme", "light");
-        // No sound on light mode
+        body.classList.remove('dark-mode');
+        localStorage.setItem('theme', 'light');
       }
     });
 
     // Scroll-triggered animation
     const sections = document.querySelectorAll("section");
-    const observer = new IntersectionObserver(entries => {
+    const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add("visible");
@@ -321,6 +332,5 @@
 
     sections.forEach(section => observer.observe(section));
   </script>
-
 </body>
 </html>
