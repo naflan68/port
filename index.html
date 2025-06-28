@@ -77,9 +77,34 @@
       margin-left: 1.5rem;
       text-decoration: none;
       font-weight: 500;
-      transition: transform 0.3s;
+      transition: transform 0.3s, color 0.3s;
     }
-    nav a:hover { transform: scale(1.1); }
+    nav a:hover {
+      transform: scale(1.1);
+      color: #00cfff;
+    }
+
+    /* Download CV Button */
+    .download-cv {
+      margin-left: 1.5rem;
+      padding: 0.4rem 1rem;
+      background: rgba(0, 204, 255, 0.3);
+      border: 1px solid #00cfff;
+      border-radius: 20px;
+      color: #00cfff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s, transform 0.3s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      user-select: none;
+    }
+    .download-cv:hover {
+      background: #00cfff;
+      color: #000;
+      transform: scale(1.1);
+    }
 
     .switch {
       display: inline-block;
@@ -235,6 +260,7 @@
       <a href="#education">Education</a>
       <a href="#experience">Experience</a>
       <a href="#contact">Contact</a>
+      <a href="Front Page.pdf" download class="download-cv" aria-label="Download CV">Download CV</a>
       <label class="switch">
         <input type="checkbox" id="theme-toggle">
         <span class="slider"></span>
