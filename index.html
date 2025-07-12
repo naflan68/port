@@ -15,13 +15,11 @@
       transition: background 0.3s, color 0.3s;
     }
 
-    /* Dynamic gradient background */
     body::before {
       content: "";
       position: fixed;
       top: 0; left: 0;
-      width: 100%;
-      height: 100%;
+      width: 100%; height: 100%;
       background: linear-gradient(-45deg, #1a1a1a, #0f2027, #2c5364, #000000);
       background-size: 400% 400%;
       animation: gradientBG 20s ease infinite;
@@ -34,7 +32,6 @@
       100% {background-position: 0% 50%;}
     }
 
-    /* Loader */
     #loader {
       position: fixed;
       top: 0; left: 0;
@@ -55,7 +52,6 @@
       to { opacity: 0; visibility: hidden; }
     }
 
-    /* Navigation */
     nav {
       position: fixed;
       top: 0; width: 100%;
@@ -83,8 +79,6 @@
       transform: scale(1.1);
       color: #00cfff;
     }
-
-    /* Download CV Button */
     .download-cv {
       margin-left: 1.5rem;
       padding: 0.4rem 1rem;
@@ -94,18 +88,15 @@
       color: #00cfff;
       font-weight: 600;
       cursor: pointer;
-      transition: background 0.3s, color 0.3s, transform 0.3s;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
-      user-select: none;
     }
     .download-cv:hover {
       background: #00cfff;
       color: #000;
       transform: scale(1.1);
     }
-
     .switch {
       display: inline-block;
       margin-left: 1rem;
@@ -130,7 +121,6 @@
     input:checked + .slider::before { transform: translateX(26px); }
     input:checked + .slider { background: #007bff; }
 
-    /* Header Parallax */
     header {
       height: 100vh;
       display: flex;
@@ -144,15 +134,12 @@
     header h1 {
       font-size: 3rem;
       margin-bottom: 1rem;
-      transition: transform 0.3s;
     }
     header p {
       font-size: 1.2rem;
       max-width: 600px;
-      transition: transform 0.3s;
     }
 
-    /* Section */
     section {
       padding: 5rem 2rem;
       max-width: 1000px;
@@ -173,7 +160,6 @@
       margin-bottom: 2rem;
     }
 
-    /* Cards */
     .grid {
       display: grid;
       gap: 2rem;
@@ -186,14 +172,8 @@
       backdrop-filter: blur(10px);
       border: 1px solid rgba(255,255,255,0.2);
       color: white;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 0 20px rgba(0,0,0,0.4);
     }
 
-    /* Contact Icons */
     .icons {
       display: flex;
       justify-content: center;
@@ -207,7 +187,6 @@
     }
     .icons a img:hover { transform: scale(1.3); }
 
-    /* Form */
     form {
       display: flex;
       flex-direction: column;
@@ -239,19 +218,13 @@
       padding: 2rem;
       color: white;
       background: rgba(0,0,0,0.3);
-      backdrop-filter: blur(5px);
     }
 
-    /* Dark mode */
-    body.dark-mode {
-      color: #eee;
-    }
-
+    body.dark-mode { color: #eee; }
   </style>
 </head>
 <body>
-
-  <div id="loader">🕷️ Loading...</div>
+  <div id="loader">Loading...</div>
 
   <nav>
     <div class="logo">Naflan</div>
@@ -260,8 +233,7 @@
       <a href="#education">Education</a>
       <a href="#experience">Experience</a>
       <a href="#contact">Contact</a>
-      <!-- Download CV Button -->
-      <a href="Front_Page.pdf" download id="download-cv" class="download-cv" aria-label="Download CV">Download CV</a>
+      <a href="Front_Page.pdf" download class="download-cv">Download CV</a>
       <label class="switch">
         <input type="checkbox" id="theme-toggle">
         <span class="slider"></span>
@@ -276,16 +248,30 @@
 
   <section id="about">
     <h2>About Me</h2>
-    <p>I am Mohamed Naflan, an aspiring accounting professional with a strong background in academic qualifications and practical experience. I have a passion for finance, accounting systems, and delivering efficiency in business operations.</p>
+    <p>I am Mohamed Naflan, an aspiring accounting professional with strong academic achievements and practical skills. I specialize in blending digital accounting knowledge with financial systems to improve efficiency in operations.</p>
   </section>
 
   <section id="education">
     <h2>Education</h2>
     <div class="grid">
       <div class="card"><h3>BBA in Accounting</h3><p>Lincoln University, Malaysia (Ongoing)</p></div>
-      <div class="card"><h3>AAT Finalist</h3><p>Completed all levels of AAT qualification</p></div>
-      <div class="card"><h3>Diploma in Computer-Based Accounting</h3><p>Strong skills in digital accounting</p></div>
-      <div class="card"><h3>GCE A/L & O/L</h3><p>Completed with good academic standing</p></div>
+      <div class="card" title="AAT – UK-based accounting qualification. Proven skills in finance, costing, and business operations.">
+        <h3 style="cursor: help;">AAT Finalist</h3>
+        <details>
+          <summary>View My AAT Results</summary>
+          <ul style="padding-top: 1rem;">
+            <li><strong>Level 1:</strong> FAC - B, ECN - B, BMS - B, BEN - B</li>
+            <li><strong>Level 2:</strong> BMA - A, ISD - A, AFC - A, BLA - B</li>
+            <li><strong>Level 3:</strong> FAR - B, CPT - B, MAF - B, FAC - B</li>
+          </ul>
+        </details>
+      </div>
+      <div class="card"><h3>Diploma in Computer-Based Accounting</h3><p>Strong skills in digital accounting platforms.</p></div>
+      <div class="card"><h3>GCE A/L & O/L</h3><p>Completed with good academic standing.</p></div>
+      <div class="card">
+        <h3>What Makes Me Unique?</h3>
+        <p>High performance in AAT with multiple A grades shows strong analytical ability, particularly in finance and IT integration. My strength lies in using digital tools to support strategic business accounting.</p>
+      </div>
     </div>
   </section>
 
@@ -293,7 +279,7 @@
     <h2>Experience</h2>
     <div class="card">
       <h3>Store Keeper</h3>
-      <p>Managed inventory systems, streamlined stock processes, and supported logistics and supply chain tasks efficiently.</p>
+      <p>Managed inventory, streamlined stock control, and supported logistics and supply chain operations.</p>
     </div>
   </section>
 
@@ -304,8 +290,8 @@
       <a href="https://www.linkedin.com/in/mohamed-naflan-ba7780300"><img src="linkedin-logo.png" alt="LinkedIn"></a>
       <a href="https://wa.me/94787234314"><img src="whatsapp.png" alt="WhatsApp"></a>
     </div>
-   <form action="https://api.web3forms.com/submit" method="POST">
-       <input type="hidden" name="access_key" value="baa6bf6e-bab7-4801-8799-7fb70e24dd1d">
+    <form action="https://api.web3forms.com/submit" method="POST">
+      <input type="hidden" name="access_key" value="baa6bf6e-bab7-4801-8799-7fb70e24dd1d">
       <input type="text" name="name" placeholder="Your Name" required />
       <input type="email" name="email" placeholder="Your Email" required />
       <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
@@ -314,19 +300,16 @@
   </section>
 
   <footer>
-    &copy; 2025 WebQamar. All rights reserved.
+    &copy; 2025 Mohamed Naflan. All rights reserved.
   </footer>
 
-  <!-- Dark Mode Audio -->
-  <audio id="darkmode-audio" src="spiderman-theme.mp3" preload="auto"></audio>
+  <audio id="darkmode-audio" src="your-music.mp3" preload="auto"></audio>
 
   <script>
-    // Loading animation
     window.addEventListener("load", () => {
       document.getElementById("loader").style.display = "none";
     });
 
-    // Dark mode toggle
     const toggle = document.getElementById('theme-toggle');
     const body = document.body;
     const audio = document.getElementById('darkmode-audio');
@@ -348,7 +331,6 @@
       }
     });
 
-    // Scroll-triggered animation
     const sections = document.querySelectorAll("section");
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -359,18 +341,6 @@
     }, { threshold: 0.1 });
 
     sections.forEach(section => observer.observe(section));
-
-    // JS fallback for download to force it if needed
-    document.getElementById('download-cv').addEventListener('click', function(event) {
-      event.preventDefault(); // prevent default behavior
-
-      const link = document.createElement('a');
-      link.href = 'Front_Page.pdf';
-      link.download = 'Front_Page.pdf';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    });
   </script>
 </body>
 </html>
